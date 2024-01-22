@@ -8,8 +8,14 @@ using System.Threading.Tasks;
 
 namespace SAWBank.DOMAIN.Entities
 {
-    public abstract class Customer: Login
+    [Table("Customers")]
+    public abstract class Customer
     {
+
+        public int Id { get; set; }
+        public required string Username { get; set; }
+        public required byte[] Password { get; set; }
+        public abstract string Role { get; }
         [Column(TypeName = "varchar(75)")]
         public required string Email { get; set; }
         [Column(TypeName = "varchar(15)")]

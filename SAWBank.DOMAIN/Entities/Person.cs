@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SAWBank.DOMAIN.Entities
 {
+    [Table("Persons")]
     public class Person : Customer
     {
         [Column(TypeName = "varchar(50)")]

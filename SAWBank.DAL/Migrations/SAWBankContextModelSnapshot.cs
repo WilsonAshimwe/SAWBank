@@ -152,11 +152,6 @@ namespace SAWBank.DAL.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("varchar(75)");
@@ -183,11 +178,9 @@ namespace SAWBank.DAL.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customers");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Customer");
-
-                    b.UseTphMappingStrategy();
+                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("SAWBank.DOMAIN.Entities.Transaction", b =>
@@ -234,7 +227,7 @@ namespace SAWBank.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(150)");
 
-                    b.HasDiscriminator().HasValue("Company");
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("SAWBank.DOMAIN.Entities.Person", b =>
@@ -252,7 +245,7 @@ namespace SAWBank.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(75)");
 
-                    b.HasDiscriminator().HasValue("Person");
+                    b.ToTable("Persons");
                 });
 
             modelBuilder.Entity("AccountCustomer", b =>
@@ -320,6 +313,24 @@ namespace SAWBank.DAL.Migrations
                     b.Navigation("DepositAccount");
 
                     b.Navigation("WithdrawAccount");
+                });
+
+            modelBuilder.Entity("SAWBank.DOMAIN.Entities.Company", b =>
+                {
+                    b.HasOne("SAWBank.DOMAIN.Entities.Customer", null)
+                        .WithOne()
+                        .HasForeignKey("SAWBank.DOMAIN.Entities.Company", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SAWBank.DOMAIN.Entities.Person", b =>
+                {
+                    b.HasOne("SAWBank.DOMAIN.Entities.Customer", null)
+                        .WithOne()
+                        .HasForeignKey("SAWBank.DOMAIN.Entities.Person", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SAWBank.DOMAIN.Entities.Account", b =>
