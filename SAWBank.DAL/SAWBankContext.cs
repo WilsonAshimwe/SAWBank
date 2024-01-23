@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SAWBank.DAL.Seeders;
 using SAWBank.DOMAIN.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +38,23 @@ namespace SAWBank.DAL
                 .WithOne(t => t.WithdrawAccount)
                 .OnDelete(DeleteBehavior.NoAction);
 
-           //  Builder.Entity<Customer>().HasMany<Account>().WithMany( a=> a.Customers, pas obligé de le faire parceque la DB effacera seulement la relation dans la table intermediare
+            //  Builder.Entity<Customer>().HasMany<Account>().WithMany( a=> a.Customers, pas obligé de le faire parceque la DB effacera seulement la relation dans la table intermediare
+
+            Builder.Entity<Customer>().HasIndex(c => c.Email).IsUnique();
+            Builder.Entity<Customer>().HasIndex(c => c.Username).IsUnique();
+            Builder.Entity<Company>().HasIndex(c => c.BusinessNumber).IsUnique();
+            Builder.Entity<Account>().HasIndex(ac => ac.AccountNumber).IsUnique();
+            Builder.Entity<Card>().HasIndex(ac => ac.NumberCard).IsUnique();
+
+            #region Add seeders
+
+            Builder.Entity<Person>().HasData(DataSeeders.InitPeople());
+            Builder.Entity<Company>().HasData(DataSeeders.InitCompanies());
+            Builder.Entity<AccountType>().HasData(DataSeeders.InitAccountType());
+            Builder.Entity<Account>().HasData(DataSeeders.InitAccounts());
+            Builder.Entity<Card>().HasData(DataSeeders.InitCards());
+
+            #endregion
 
         }
     }

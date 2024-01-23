@@ -31,7 +31,8 @@ namespace SAWBank.DOMAIN.Entities
         [InverseProperty("WithdrawAccount")]
         public List<Transaction>? WithdrawAccountTransactions { get; set; }
 
-
+        [Column(TypeName = "varchar(20)")]
+        public string AccountNumber { get; set; } = null!;
 
 
 
