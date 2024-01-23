@@ -46,7 +46,7 @@ namespace SAWBank.DAL
             Builder.Entity<Account>().HasIndex(ac => ac.AccountNumber).IsUnique();
             Builder.Entity<Card>().HasIndex(ac => ac.NumberCard).IsUnique();
 
-            #region Add seeders
+            #region Add Seeders
 
             Builder.Entity<Person>().HasData(DataSeeders.InitPeople());
             Builder.Entity<Company>().HasData(DataSeeders.InitCompanies());

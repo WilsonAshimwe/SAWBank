@@ -74,7 +74,7 @@ namespace SAWBank.DAL.Seeders
                 CurrentBalance = 500,
                 IsActive = true,
                 IsSuspended = false,
-                Type = InitAccountType().ToArray()[1],
+                Type =(AccountType) InitAccountType().ToArray()[1],
                 Customers = new List<Customer>() { InitPeople().ToArray()[0] },
                 AccountNumber = "BE-22-1111-333-5555"
             };
@@ -84,7 +84,7 @@ namespace SAWBank.DAL.Seeders
                 CurrentBalance = 400000,
                 IsActive = true,
                 IsSuspended = false,
-                Type = InitAccountType().ToArray()[0],
+                Type = (AccountType)InitAccountType().ToArray()[0],
                 Customers = new List<Customer>() { InitPeople().ToArray()[1] },
                 AccountNumber = "BE-22-1111-333-4888"
             };
@@ -94,7 +94,7 @@ namespace SAWBank.DAL.Seeders
                 CurrentBalance = 0,
                 IsActive = true,
                 IsSuspended = false,
-                Type = InitAccountType().ToArray()[0],
+                Type = (AccountType)InitAccountType().ToArray()[0],
                 Customers = new List<Customer>() { InitPeople().ToArray()[2] },
                 AccountNumber = "BE-22-1111-444-4444"
             };
@@ -104,7 +104,7 @@ namespace SAWBank.DAL.Seeders
                 CurrentBalance = 100000000,
                 IsActive = true,
                 IsSuspended = false,
-                Type = InitAccountType().ToArray()[0],
+                Type = (AccountType)InitAccountType().ToArray()[0],
                 Customers = new List<Customer>() { InitCompanies().ToArray()[0] },
                 AccountNumber = "BE-22-1111-383-4444"
             };
@@ -114,7 +114,7 @@ namespace SAWBank.DAL.Seeders
                 CurrentBalance = 200000000,
                 IsActive = true,
                 IsSuspended = false,
-                Type = InitAccountType().ToArray()[0],
+                Type = (AccountType)InitAccountType().ToArray()[0],
                 Customers = new List<Customer>() { InitCompanies().ToArray()[1] },
                 AccountNumber = "BE-24-1111-333-4444"
             };
@@ -124,7 +124,7 @@ namespace SAWBank.DAL.Seeders
                 CurrentBalance = 500,
                 IsActive = true,
                 IsSuspended = false,
-                Type = InitAccountType().ToArray()[0],
+                Type = (AccountType)InitAccountType().ToArray()[0],
                 Customers = new List<Customer>() { InitCompanies().ToArray()[2] },
                 AccountNumber = "BE-22-1177-333-4444"
             };
