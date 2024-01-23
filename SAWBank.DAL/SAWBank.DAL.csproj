@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Seeders\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>
