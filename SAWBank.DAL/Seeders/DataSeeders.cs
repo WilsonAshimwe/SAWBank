@@ -124,14 +124,57 @@ namespace SAWBank.DAL.Seeders
 
         }
 
-        //public static IEnumerable<Card> InitCards()
-        //{
-        //    yield return new Card() 
-        //    { 
-        //        Id = 1,
-        //        NumberCard = ""
-        //    };
-        //}
+        public static IEnumerable<Card> InitCards()
+        {
+            yield return new Card() 
+            { 
+                Id = 1,
+                NumberCard = "0000-1234-5678-9012",
+                Pin = new PasswordHasher().Hash("0000-1234-5678-9012" + "0000"),
+                IsBlocked = false,
+                Account = InitAccounts().ToArray()[0],
+            };
+            yield return new Card()
+            {
+                Id = 2,
+                NumberCard = "1111-1234-5678-9012",
+                Pin = new PasswordHasher().Hash("1111-1234-5678-9012" + "1111"),
+                IsBlocked = false,
+                Account = InitAccounts().ToArray()[2],
+            };
+            yield return new Card()
+            {
+                Id = 3,
+                NumberCard = "2222-1234-5678-9012",
+                Pin = new PasswordHasher().Hash("2222-1234-5678-9012" + "2222"),
+                IsBlocked = false,
+                Account = InitAccounts().ToArray()[3],
+            };
+            yield return new Card()
+            {
+                Id = 4,
+                NumberCard = "3333-1234-5678-9012",
+                Pin = new PasswordHasher().Hash("3333-1234-5678-9012" + "3333"),
+                IsBlocked = false,
+                Account = InitAccounts().ToArray()[4],
+            };
+            yield return new Card()
+            {
+                Id = 5,
+                NumberCard = "4444-1234-5678-9012",
+                Pin = new PasswordHasher().Hash("4444-1234-5678-9012" + "4444"),
+                IsBlocked = false,
+                Account = InitAccounts().ToArray()[5],
+            };
+            yield return new Card()
+            {
+                Id = 6,
+                NumberCard = "5555-1234-5678-9012",
+                Pin = new PasswordHasher().Hash("5555-1234-5678-9012" + "5555"),
+                IsBlocked = false,
+                Account = InitAccounts().ToArray()[6],
+            };
+        }
 
     }
 }
