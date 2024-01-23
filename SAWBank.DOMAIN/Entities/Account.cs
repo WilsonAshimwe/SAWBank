@@ -19,11 +19,11 @@ namespace SAWBank.DOMAIN.Entities
         public bool IsSuspended { get; set; }
 
         //public int AccountId { get; set; }
-        public required AccountType Type { get; set; }
+        public AccountType Type { get; set; } = null!;
 
-        public List<Card> Cards { get; set; } = new List<Card>();
+        public List<Card> Cards { get; set; } = null!;
 
-        public required List<Customer> Customers { get; set; } 
+        public List<Customer> Customers { get; set; } = null!;
 
         [InverseProperty("DepositAccount")]
         public List<Transaction>? DepositAccountTransactions { get; set; }
