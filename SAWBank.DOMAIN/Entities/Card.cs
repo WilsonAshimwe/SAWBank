@@ -17,6 +17,6 @@ namespace SAWBank.DOMAIN.Entities
         public required byte[] Pin { get; set; }
         public bool IsBlocked { get; set; } = false;
 
-        public Account Account { get; set; }
+        public Account Account { get; set; } = null!;
     }
 }

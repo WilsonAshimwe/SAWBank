@@ -6,7 +6,6 @@ namespace SAWBank.DAL.Seeders
 {
     public class DataSeeders
     {
-
         public static IEnumerable<Address> InitAddresses()
         {
             yield return new Address() { Id = 1, Street = "Rue blablabla", City = "Bruxelles", StreetNumber = "5", ZipCode = "1000", AdditionalInfo = null };
@@ -15,6 +14,51 @@ namespace SAWBank.DAL.Seeders
             yield return new Address() { Id = 4, Street = "Rue delhaize", City = "Bruxelles", StreetNumber = "21", ZipCode = "1000", AdditionalInfo = null };
             yield return new Address() { Id = 5, Street = "Rue repository", City = "Bruxelles", StreetNumber = "156", ZipCode = "1000", AdditionalInfo = null };
             yield return new Address() { Id = 6, Street = "Rue formation", City = "Bruxelles", StreetNumber = "98a", ZipCode = "1000", AdditionalInfo = null };
+        }
+
+        public static IEnumerable<Person> InitPeople()
+        {
+            yield return new Person()
+            {
+                Id = 1, Username = "stef", Email = "stef@test.com", Password = new PasswordHasher().Hash("stef@test.com" + "1234"),
+                PhoneNumber = "+320413234567", Image = null, IsActive = true, AddressId = InitAddresses().ToArray()[0].Id,
+                FirstName = "Stefania", LastName = "Méchante", BirthDate = new DateTime(1900, 02, 16, 17, 13, 04, 374)
+            };
+            yield return new Person() 
+            { 
+                Id = 2, Username = "wil", Email = "wil@test.com", Password = new PasswordHasher().Hash("wil@test.com" + "4567"), 
+                PhoneNumber = "+320423234789", Image = null, IsActive = true, AddressId = InitAddresses().ToArray()[1].Id, 
+                FirstName = "Wilson", LastName = "Python Expert", BirthDate = new DateTime(1930, 05, 21, 17, 13, 04, 374)
+            };
+            yield return new Person() 
+            { 
+                Id = 3, Username = "ad", Email = "ad@test.com", Password = new PasswordHasher().Hash("ad@test.com" + "7890"), 
+                PhoneNumber = "+320473568123", Image = null, IsActive = true, AddressId = InitAddresses().ToArray()[2].Id, 
+                FirstName = "Adam", LastName = "Number One", BirthDate = new DateTime(1996, 07, 17, 17, 13, 04, 374) 
+            };
+        }
+
+        public static IEnumerable<Address> InitAddresses()
+        {
+            
+            yield return new Company() 
+            { 
+                Id = 4, Username = "Delheize", Email = "delheize@supermarket.com", Password = new PasswordHasher().Hash("delheize@supermarket.com" + "1234"), 
+                PhoneNumber = "+320489234321", Image = null, IsActive = true, Address = new Address() { Id = 4, Street = "Rue delhaize", City = "Bruxelles", StreetNumber = "21", ZipCode = "1000", AdditionalInfo = null }, 
+                Name = "Delheize", BusinessNumber = "BE 0123.456.789" 
+            };
+            yield return new Company() 
+            { 
+                Id = 5, Username = "Github", Email = "github@info.com", Password = new PasswordHasher().Hash("github@info.com" + "1234"), 
+                PhoneNumber = "+320489234333", Image = null, IsActive = true, Address = new Address() { Id = 5, Street = "Rue repository", City = "Bruxelles", StreetNumber = "156", ZipCode = "1000", AdditionalInfo = null }, 
+                Name = "Github", BusinessNumber = "BE 3456.789.012" 
+            };
+            yield return new Company() 
+            { 
+                Id = 6, Username = "DC", Email = "digitalcity@info.com", Password = new PasswordHasher().Hash("digitalcity@info.com" + "1234"), 
+                PhoneNumber = "+320489232222", Image = null, IsActive = true, Address = new Address() { Id = 6, Street = "Rue formation", City = "Bruxelles", StreetNumber = "98a", ZipCode = "1000", AdditionalInfo = null }, 
+                Name = "Digital City", BusinessNumber = "BE 3210.987.654" 
+            };
         }
 
         public static IEnumerable<AccountType> InitAccountType()
