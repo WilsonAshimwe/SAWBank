@@ -23,7 +23,9 @@ namespace SAWBank.DOMAIN.Entities
         public string? Image { get; set; }
         public bool IsActive { get; set; } = true;
 
-        public required Address Address { get; set; }
+        public int AddressId { get; set; }
+        [ForeignKey("AddressId")]
+        public Address Address { get; set; } = null!;
 
         public List<Account> Accounts { get; set; } = null!;
     }

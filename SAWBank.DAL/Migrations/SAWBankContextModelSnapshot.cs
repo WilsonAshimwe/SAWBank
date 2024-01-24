@@ -45,6 +45,9 @@ namespace SAWBank.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
                     b.Property<string>("AccountNumber")
                         .IsRequired()
                         .HasColumnType("varchar(20)");
@@ -85,6 +88,18 @@ namespace SAWBank.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AccountTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Type = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Type = 1
+                        });
                 });
 
             modelBuilder.Entity("SAWBank.DOMAIN.Entities.Address", b =>
@@ -117,6 +132,56 @@ namespace SAWBank.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Addresses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            City = "Bruxelles",
+                            Street = "Rue blablabla",
+                            StreetNumber = "5",
+                            ZipCode = "1000"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            City = "Londre",
+                            Street = "Rue nononono",
+                            StreetNumber = "43B",
+                            ZipCode = "8513"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            City = "Bruxelles",
+                            Street = "Rue hihihihi",
+                            StreetNumber = "777",
+                            ZipCode = "3657"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            City = "Bruxelles",
+                            Street = "Rue delhaize",
+                            StreetNumber = "21",
+                            ZipCode = "1000"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            City = "Bruxelles",
+                            Street = "Rue repository",
+                            StreetNumber = "156",
+                            ZipCode = "1000"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            City = "Bruxelles",
+                            Street = "Rue formation",
+                            StreetNumber = "98a",
+                            ZipCode = "1000"
+                        });
                 });
 
             modelBuilder.Entity("SAWBank.DOMAIN.Entities.Card", b =>
@@ -248,6 +313,44 @@ namespace SAWBank.DAL.Migrations
                         .HasFilter("[BusinessNumber] IS NOT NULL");
 
                     b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 4,
+                            AddressId = 4,
+                            Email = "delheize@supermarket.com",
+                            IsActive = true,
+                            Password = new byte[] { 169, 214, 2, 40, 69, 37, 241, 232, 9, 131, 182, 99, 72, 238, 75, 86, 85, 168, 70, 55, 38, 134, 138, 50, 214, 30, 254, 79, 165, 213, 77, 53, 188, 145, 149, 65, 36, 225, 53, 78, 195, 41, 241, 179, 177, 136, 217, 207, 53, 23, 232, 4, 234, 230, 12, 4, 150, 171, 29, 134, 145, 67, 212, 20 },
+                            PhoneNumber = "+320489234321",
+                            Username = "Delheize",
+                            BusinessNumber = "BE 0123.456.789",
+                            Name = "Delheize"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AddressId = 5,
+                            Email = "github@info.com",
+                            IsActive = true,
+                            Password = new byte[] { 193, 198, 49, 69, 230, 250, 211, 107, 15, 215, 236, 43, 69, 34, 149, 196, 167, 10, 230, 19, 7, 24, 223, 91, 23, 209, 142, 125, 77, 159, 171, 83, 160, 39, 31, 140, 203, 215, 41, 62, 20, 175, 168, 175, 145, 157, 238, 202, 168, 241, 243, 30, 212, 15, 229, 216, 206, 77, 147, 78, 76, 197, 246, 46 },
+                            PhoneNumber = "+320489234333",
+                            Username = "Github",
+                            BusinessNumber = "BE 3456.789.012",
+                            Name = "Github"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AddressId = 6,
+                            Email = "digitalcity@info.com",
+                            IsActive = true,
+                            Password = new byte[] { 192, 46, 211, 178, 84, 234, 9, 23, 241, 64, 250, 39, 173, 237, 202, 179, 141, 10, 223, 92, 215, 168, 209, 167, 100, 198, 57, 19, 96, 30, 173, 32, 74, 55, 46, 112, 182, 115, 148, 252, 132, 216, 74, 187, 57, 199, 141, 15, 95, 117, 87, 172, 110, 14, 133, 53, 202, 39, 32, 80, 95, 39, 22, 230 },
+                            PhoneNumber = "+320489232222",
+                            Username = "DC",
+                            BusinessNumber = "BE 3210.987.654",
+                            Name = "Digital City"
+                        });
                 });
 
             modelBuilder.Entity("SAWBank.DOMAIN.Entities.Person", b =>
@@ -266,6 +369,47 @@ namespace SAWBank.DAL.Migrations
                         .HasColumnType("nvarchar(75)");
 
                     b.ToTable("Persons");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddressId = 1,
+                            Email = "stef@test.com",
+                            IsActive = true,
+                            Password = new byte[] { 72, 184, 29, 54, 101, 234, 221, 63, 181, 23, 191, 84, 109, 221, 56, 115, 5, 6, 141, 194, 143, 245, 166, 161, 20, 14, 248, 31, 247, 113, 132, 3, 140, 255, 202, 108, 29, 111, 228, 63, 99, 103, 33, 130, 144, 21, 105, 138, 7, 247, 206, 163, 194, 184, 131, 109, 80, 15, 109, 101, 20, 25, 230, 105 },
+                            PhoneNumber = "+320413234567",
+                            Username = "stef",
+                            BirthDate = new DateTime(1900, 2, 16, 17, 13, 4, 374, DateTimeKind.Unspecified),
+                            FirstName = "Stefania",
+                            LastName = "Méchante"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AddressId = 2,
+                            Email = "wil@test.com",
+                            IsActive = true,
+                            Password = new byte[] { 55, 153, 21, 146, 139, 174, 49, 219, 41, 97, 132, 28, 255, 58, 33, 248, 142, 75, 152, 221, 22, 26, 94, 200, 108, 13, 99, 74, 121, 189, 211, 200, 60, 159, 13, 122, 159, 66, 251, 145, 29, 127, 12, 102, 167, 58, 38, 153, 165, 25, 143, 238, 37, 67, 179, 4, 67, 170, 230, 141, 22, 16, 226, 7 },
+                            PhoneNumber = "+320423234789",
+                            Username = "wil",
+                            BirthDate = new DateTime(1930, 5, 21, 17, 13, 4, 374, DateTimeKind.Unspecified),
+                            FirstName = "Wilson",
+                            LastName = "Python Expert"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AddressId = 3,
+                            Email = "ad@test.com",
+                            IsActive = true,
+                            Password = new byte[] { 21, 216, 127, 210, 33, 85, 249, 34, 145, 223, 67, 132, 67, 249, 232, 153, 89, 106, 126, 13, 242, 199, 211, 79, 254, 5, 228, 106, 188, 227, 181, 143, 202, 210, 93, 192, 202, 166, 215, 138, 55, 47, 192, 174, 75, 94, 222, 129, 176, 105, 51, 67, 128, 140, 85, 205, 135, 226, 238, 212, 105, 161, 235, 91 },
+                            PhoneNumber = "+320473568123",
+                            Username = "ad",
+                            BirthDate = new DateTime(1996, 7, 17, 17, 13, 4, 374, DateTimeKind.Unspecified),
+                            FirstName = "Adam",
+                            LastName = "Number One"
+                        });
                 });
 
             modelBuilder.Entity("AccountCustomer", b =>

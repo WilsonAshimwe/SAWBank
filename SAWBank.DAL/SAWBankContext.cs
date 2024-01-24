@@ -48,11 +48,12 @@ namespace SAWBank.DAL
 
             #region Add Seeders
 
+            Builder.Entity<Address>().HasData(DataSeeders.InitAddresses());
             Builder.Entity<Person>().HasData(DataSeeders.InitPeople());
             Builder.Entity<Company>().HasData(DataSeeders.InitCompanies());
-            //Builder.Entity<AccountType>().HasData(DataSeeders.InitAccountType());
-            //Builder.Entity<Account>().HasData(DataSeeders.InitAccounts());
-            //Builder.Entity<Card>().HasData(DataSeeders.InitCards());
+            Builder.Entity<AccountType>().HasData(DataSeeders.InitAccountType());
+            Builder.Entity<Account>().HasData(DataSeeders.InitAccounts());
+            Builder.Entity<Card>().HasData(DataSeeders.InitCards());
 
             #endregion
 
