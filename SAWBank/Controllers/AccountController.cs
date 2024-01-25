@@ -207,7 +207,6 @@ namespace SAWBank.API.Controllers
 
         }
 
-
         //DONE:  -[Delede] Delete(Account){ .Update()} --> IsActive = false, IsSuspended = true
         [HttpPatch("delete")]
         [Authorize]
@@ -299,6 +298,10 @@ namespace SAWBank.API.Controllers
                                 accountService.Update(data);
                                 return Ok();
                             }
+                        }
+                        else
+                        {
+                            throw new Exception();
                         }
                     }
                 }
