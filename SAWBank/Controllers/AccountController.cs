@@ -31,6 +31,85 @@ namespace SAWBank.API.Controllers
             }
         }
 
+        // GET api/Account?CustomerId=1&AccountNumber=BE-22-1111-333-4444 --> DONE -[Get] Get(Customer.Id, Account.AccountNumber){}
+        [HttpGet]
+        public IActionResult Get([FromQuery] CustomerIdDTO dtoId, [FromQuery] AccountNumberDTO dtoNumber)
+        {
+            try
+            {
+                Account? data = accountService.FindByAccountNumber(dtoId.CustomerId, dtoNumber.AccountNumber);
+                AccountResultDTO result = new AccountResultDTO();
+                if (data != null && data.IsActive)
+                {
+                    #region CreationLists
+
+                    List<CardDTO> cards = new List<CardDTO>();
+                    if (data.Cards.Count > 0)
+                    {
+                        data.Cards.ForEach(dC =>
+                        {
+                            CardDTO c = new CardDTO()
+                            {
+                                Id = dC.Id,
+                                NumberCard = dC.NumberCard,
+                                Pin = dC.Pin,
+                                IsBlocked = dC.IsBlocked,
+                            };
+                            cards.Add(c);
+                        });
+                    }
+
+                    List<TransactionDTO>? depos = new List<TransactionDTO>();
+                    if (data.DepositAccountTransactions.Count > 0)
+                    {
+                        data.DepositAccountTransactions.ForEach(dD =>
+                        {
+                            TransactionDTO Ddepo = new TransactionDTO()
+                            {
+                                Id = dD.Id,
+                                TransactionDate = dD.TransactionDate,
+                                Amount = dD.Amount,
+                            };
+                            depos.Add(Ddepo);
+                        });
+                    }
+
+                    List<TransactionDTO> withDraw = new List<TransactionDTO>();
+                    if (data.WithdrawAccountTransactions.Count > 0)
+                    {
+                        data.WithdrawAccountTransactions.ForEach(dD =>
+                        {
+                            TransactionDTO dwd = new TransactionDTO()
+                            {
+                                Id = dD.Id,
+                                TransactionDate = dD.TransactionDate,
+                                Amount = dD.Amount,
+                            };
+                            withDraw.Add(dwd);
+                        });
+                    }
+
+                    #endregion
+
+                    result.Id = data.Id;
+                    result.AccountNumber = data.AccountNumber;
+                    result.IsActive = data.IsActive;
+                    result.IsSuspended = data.IsSuspended;
+                    result.Type = new AccountTypeDTO() { Id = data.Type.Id, Type = data.Type.Type };
+                    result.Cards = cards;
+                    result.DepositAccountTransactions = depos;
+                    result.WithdrawAccountTransactions = withDraw;
+
+                }
+
+                return Ok(result);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         // GET api/Account/email="test@test.com"    --> DONE : -[Get] GetAll(Customer.Id) {}
         [HttpGet("email")]
         //[Authorize]   //--> in another case:  [Authorize(Roles = "PERSON,COMPANY")] (but here this is all)
@@ -127,84 +206,7 @@ namespace SAWBank.API.Controllers
 
         }
 
-        // GET api/Account?CustomerId=1&AccountNumber=BE-22-1111-333-4444 --> DONE -[Get] Get(Customer.Id, Account.AccountNumber){}
-        [HttpGet]
-        public IActionResult Get([FromQuery]CustomerIdDTO dtoId, [FromQuery]AccountNumberDTO dtoNumber )
-        {
-            try
-            {
-                Account? data = accountService.FindByAccountNumber(dtoId.CustomerId, dtoNumber.AccountNumber);
-                AccountResultDTO result = new AccountResultDTO();
-                if (data != null && data.IsActive)
-                {
-                    #region CreationLists
 
-                    List<CardDTO> cards = new List<CardDTO>();
-                    if (data.Cards.Count > 0)
-                    {
-                        data.Cards.ForEach(dC =>
-                        {
-                            CardDTO c = new CardDTO()
-                            {
-                                Id = dC.Id,
-                                NumberCard = dC.NumberCard,
-                                Pin = dC.Pin,
-                                IsBlocked = dC.IsBlocked,
-                            };
-                            cards.Add(c);
-                        });
-                    }
-
-                    List<TransactionDTO>? depos = new List<TransactionDTO>();
-                    if (data.DepositAccountTransactions.Count > 0)
-                    {
-                        data.DepositAccountTransactions.ForEach(dD =>
-                        {
-                            TransactionDTO Ddepo = new TransactionDTO()
-                            {
-                                Id = dD.Id,
-                                TransactionDate = dD.TransactionDate,
-                                Amount = dD.Amount,
-                            };
-                            depos.Add(Ddepo);
-                        });
-                    }
-
-                    List<TransactionDTO> withDraw = new List<TransactionDTO>();
-                    if (data.WithdrawAccountTransactions.Count > 0)
-                    {
-                        data.WithdrawAccountTransactions.ForEach(dD =>
-                        {
-                            TransactionDTO dwd = new TransactionDTO()
-                            {
-                                Id = dD.Id,
-                                TransactionDate = dD.TransactionDate,
-                                Amount = dD.Amount,
-                            };
-                            withDraw.Add(dwd);
-                        });
-                    }
-
-                    #endregion
-
-                    result.Id = data.Id;
-                    result.AccountNumber = data.AccountNumber;
-                    result.IsActive = data.IsActive;
-                    result.IsSuspended = data.IsSuspended;
-                    result.Type = new AccountTypeDTO() { Id=data.Type.Id,Type=data.Type.Type };
-                    result.Cards = cards;
-                    result.DepositAccountTransactions = depos;
-                    result.WithdrawAccountTransactions = withDraw;
-
-                }
-                
-                return Ok(result);
-            }
-            catch 
-            { 
-                return BadRequest();
-            }
-        }
 
         // POST api/<AccountController>
         [HttpPost]
