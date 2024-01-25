@@ -1,0 +1,12 @@
+﻿<h1>Bonjour @MemberName</h1>
+<h3>Vous avez été inscrit à notre plateform, voici votre mdp : @Password</h3>
+<h4>pin carte bancaire</h4>
+
+@code {
+    [Parameter]
+    public string MemberName { get; set; }
+    [Parameter]
+    public string Password { get; set; }
+    [Parameter]
+    public string CardPin { get; set; }
+}
