@@ -31,6 +31,19 @@ namespace SAWBank.BLL.Services
         {
             return _accountRepository.FindByAccountNumber(CustomerId, accountNumber);
         }
+        public Account? FindBAccountByNumber(string accountNumber)
+        {
+            return _accountRepository.FindByNumberAccountInclundingAll(accountNumber);
+        }
+
+        public Account? FindById(int AccountId)
+        {
+            return _accountRepository.Find(AccountId);
+        }
+        public void Update(Account account)
+        {
+            _accountRepository.Update(account);
+        }
 
     }
 }

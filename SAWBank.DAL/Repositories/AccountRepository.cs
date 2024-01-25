@@ -16,8 +16,13 @@ namespace SAWBank.DAL.Repositories
         }
         public override Account? Find(params object[] id)
         {
+            //Find By Id Inclunding All
             return _table
                 .Include(a => a.Type)
+                .Include(a => a.Cards)
+                .Include(a => a.DepositAccountTransactions)
+                .Include(a => a.WithdrawAccountTransactions)
+                .Include(a=> a.Customers)
                 .FirstOrDefault(a => a.Id == (int)id[0]);
         }
         public void Delete(Account account)
@@ -25,14 +30,15 @@ namespace SAWBank.DAL.Repositories
             _table.Remove(account);
         }
 
-        public Account? FindByIdInclundingAll(params object[] id)
+        public Account? FindByNumberAccountInclundingAll(string accountNumber)
         {
             return _table
-                .Include(a => a.Type)
-                .Include(a => a.Cards)
-                .Include(a => a.DepositAccountTransactions)
-                .Include(a => a.WithdrawAccountTransactions)
-                .FirstOrDefault(a => a.Id == (int)id[0]);
+              .Include(a => a.Customers)
+              .Include(a => a.Type)
+              .Include(a => a.Cards)
+              .Include(a => a.DepositAccountTransactions)
+              .Include(a => a.WithdrawAccountTransactions)
+              .FirstOrDefault(a => a.AccountNumber == accountNumber);
 
         }
 

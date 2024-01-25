@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using SAWBank.API.DTO.Account;
 using SAWBank.API.Extensions;
 using SAWBank.BLL.Services;
@@ -17,7 +18,7 @@ namespace SAWBank.API.Controllers
     {
         // GET: api/<AccountController>
         [HttpGet("test")]
-        public IActionResult Get()
+        public IActionResult GetTest()
         {
             try
             {
@@ -33,11 +34,11 @@ namespace SAWBank.API.Controllers
 
         // GET api/Account?CustomerId=1&AccountNumber=BE-22-1111-333-4444 --> DONE -[Get] Get(Customer.Id, Account.AccountNumber){}
         [HttpGet]
-        public IActionResult Get([FromQuery] CustomerIdDTO dtoId, [FromQuery] AccountNumberDTO dtoNumber)
+        public IActionResult Get([FromQuery] int dtoId, [FromQuery] string dtoNumber)
         {
             try
             {
-                Account? data = accountService.FindByAccountNumber(dtoId.CustomerId, dtoNumber.AccountNumber);
+                Account? data = accountService.FindByAccountNumber(dtoId, dtoNumber);
                 AccountResultDTO result = new AccountResultDTO();
                 if (data != null && data.IsActive)
                 {
@@ -113,11 +114,11 @@ namespace SAWBank.API.Controllers
         // GET api/Account/email="test@test.com"    --> DONE : -[Get] GetAll(Customer.Id) {}
         [HttpGet("email")]
         //[Authorize]   //--> in another case:  [Authorize(Roles = "PERSON,COMPANY")] (but here this is all)
-        public IActionResult GetAll([FromQuery] CustomerEmailDTO dto) //User.Email();
+        public IActionResult GetAll([FromQuery] CustomerEmailDTO dto) // string email //User.Email();
         {
 
             //bool isConnected = User != null;
-            //string email =  User.Email();
+            //string email =  User.Email();     //string? email = User.FindFirstValue(ClaimTypes.Email);
             try
             {
                 List<Account>? data = accountService.GettAllAccountForCusomer(dto.Email);
@@ -207,23 +208,117 @@ namespace SAWBank.API.Controllers
         }
 
 
-
-        // POST api/<AccountController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        //DONE:  -[Delede] Delete(Account){ .Update()} --> IsActive = false, IsSuspended = true
+        [HttpPatch("delete")]
+        [Authorize]
+        public IActionResult SoftDelete([FromBody] AccountResultDTO dto)
         {
+            bool isConnected = User != null;
+            if (isConnected)
+            {
+                //int idUser =int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                int idUser = User.Id();
+                try
+                {
+                    Account? data = accountService.FindBAccountByNumber(dto.AccountNumber);
+                    if (data == null)
+                    {
+                        throw new Exception("The account doesn't exist");
+                    }
+                    else
+                    {
+                        if (data.Customers.Count > 0)
+                        {
+                            List<int> idsCustomers = new List<int>();
+                            data.Customers.ForEach(c =>{ idsCustomers.Add(c.Id); });
+
+                            //Is the connected customer the account owner? 
+                            if (!idsCustomers.Contains(idUser))
+                            {
+                                throw new Exception("This is not Your account, you can't change it");
+                            }
+                            else
+                            {
+                                data.IsActive = false;
+                                accountService.Update(data);
+                                return Ok();
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
+                    }
+                }
+                catch (UnauthorizedAccessException ex) 
+                { 
+                    return BadRequest(ex.Message);
+                }
+                catch (BadHttpRequestException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
-        // PUT api/<AccountController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        //DONE:  -[Delede] Delete(id){ .Update()} --> IsActive = false, IsSuspended = true
+        [HttpPut("id")]
+        [Authorize]
+        public IActionResult DeleteWithId([FromBody] int AccountId)
         {
+            bool isConnected = User != null;
+            if(isConnected)
+            {
+                try
+                {
+                    int idCustomer = User.Id();
+                    Account? data = accountService.FindById(AccountId);
+                    if (data == null)
+                    {
+                        throw new Exception("The account doesn't exist");
+                    }
+                    else
+                    {
+                        if(data.Customers.Count > 0)
+                        {
+                            List<int> idsCustomers = new List<int>();
+                            data.Customers.ForEach(c => { idsCustomers.Add(c.Id); });
+
+                            //Is the connected customer the account owner? 
+                            if (!idsCustomers.Contains(idCustomer))
+                            {
+                                throw new Exception("This is not Your account, you can't change it");
+                            }
+                            else
+                            {
+                                data.IsActive = false;
+                                accountService.Update(data);
+                                return Ok();
+                            }
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+
+            }
+            else
+            {
+                //new UnauthorizedAccessException()
+                return BadRequest();
+            }
         }
 
-        // DELETE api/<AccountController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        // DELETE api/<AccountController>/5   --> we wont soft delete
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

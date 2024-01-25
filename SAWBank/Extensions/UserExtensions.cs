@@ -11,5 +11,10 @@ namespace SAWBank.API.Extensions
         {
             return claims.FindFirst(ClaimTypes.Email).Value;
         }
+
+        public static int Id(this ClaimsPrincipal claims)
+        {
+            return int.Parse(claims.FindFirstValue(ClaimTypes.NameIdentifier));
+        }
     }
 }

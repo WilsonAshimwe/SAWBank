@@ -4,7 +4,7 @@ namespace SAWBank.API.DTO.Account
 {
     public class AccountResultDTO
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         //After we divide by 100
         public int CurrentBalance { get; set; }
         public bool IsActive { get; set; } = true;
