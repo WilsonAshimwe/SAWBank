@@ -18,7 +18,7 @@ namespace SAWBank.DOMAIN.Entities
 
         public bool IsSuspended { get; set; }
 
-        public int AccountId { get; set; }
+        public int TypeId { get; set; }
         [ForeignKey("TypeId")]
         public AccountType Type { get; set; } = null!;
 

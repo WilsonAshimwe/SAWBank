@@ -74,132 +74,131 @@ namespace SAWBank.DAL.Seeders
             };
         }
 
-        //public static IEnumerable<Account> InitAccounts()
-        //{
-        //    yield return new Account()
-        //    {
-        //        Id = 1,
-        //        CurrentBalance = 10000,
-        //        IsActive = true,
-        //        IsSuspended = false,
-        //        TypeId = InitAccountType().ToArray()[0].Id,
-        //        Customers = new List<Customer>() { InitPeople().ToArray()[0] },
-        //        AccountNumber = "BE-22-1111-333-4444"
-        //    };
-        //    yield return new Account()
-        //    {
-        //        Id = 2,
-        //        CurrentBalance = 500,
-        //        IsActive = true,
-        //        IsSuspended = false,
-        //        TypeId = InitAccountType().ToArray()[1].Id,
-        //        Customers = new List<Customer>() { InitPeople().ToArray()[0] },
-        //        AccountNumber = "BE-22-1111-333-5555"
-        //    };
-        //    yield return new Account()
-        //    {
-        //        Id = 3,
-        //        CurrentBalance = 400000,
-        //        IsActive = true,
-        //        IsSuspended = false,
-        //        TypeId = InitAccountType().ToArray()[0].Id,
-        //        Customers = new List<Customer>() { InitPeople().ToArray()[1] },
-        //        AccountNumber = "BE-22-1111-333-4888"
-        //    };
-        //    yield return new Account()
-        //    {
-        //        Id = 4,
-        //        CurrentBalance = 0,
-        //        IsActive = true,
-        //        IsSuspended = false,
-        //        TypeId = InitAccountType().ToArray()[0].Id,
-        //        Customers = new List<Customer>() { InitPeople().ToArray()[2] },
-        //        AccountNumber = "BE-22-1111-444-4444"
-        //    };
-        //    yield return new Account()
-        //    {
-        //        Id = 5,
-        //        CurrentBalance = 100000000,
-        //        IsActive = true,
-        //        IsSuspended = false,
-        //        TypeId = InitAccountType().ToArray()[0].Id,
-        //        Customers = new List<Customer>() { InitCompanies().ToArray()[0] },
-        //        AccountNumber = "BE-22-1111-383-4444"
-        //    };
-        //    yield return new Account()
-        //    {
-        //        Id = 6,
-        //        CurrentBalance = 200000000,
-        //        IsActive = true,
-        //        IsSuspended = false,
-        //        TypeId = InitAccountType().ToArray()[0].Id,
-        //        Customers = new List<Customer>() { InitCompanies().ToArray()[1] },
-        //        AccountNumber = "BE-24-1111-333-4444"
-        //    };
-        //    yield return new Account()
-        //    {
-        //        Id = 7,
-        //        CurrentBalance = 500,
-        //        IsActive = true,
-        //        IsSuspended = false,
-        //        TypeId = InitAccountType().ToArray()[0].Id,
-        //        Customers = new List<Customer>() { InitCompanies().ToArray()[2] },
-        //        AccountNumber = "BE-22-1177-333-4444"
-        //    };
+        public static IEnumerable<Account> InitAccounts()
+        {
+            yield return new Account()
+            {
+                Id = 1,
+                CurrentBalance = 10000,
+                IsActive = true,
+                IsSuspended = false,
+                TypeId = InitAccountType().ToArray()[0].Id,
+                //Customers = new List<Customer>() { InitPeople().ToArray()[0] },
+                AccountNumber = "BE-22-1111-333-4444"
+            };
+            yield return new Account()
+            {
+                Id = 2,
+                CurrentBalance = 500,
+                IsActive = true,
+                IsSuspended = false,
+                TypeId = InitAccountType().ToArray()[1].Id,
+                //Customers = new List<Customer>() { InitPeople().ToArray()[0] },
+                AccountNumber = "BE-22-1111-333-5555"
+            };
+            yield return new Account()
+            {
+                Id = 3,
+                CurrentBalance = 400000,
+                IsActive = true,
+                IsSuspended = false,
+                TypeId = InitAccountType().ToArray()[0].Id,
+                //Customers = new List<Customer>() { InitPeople().ToArray()[1] },
+                AccountNumber = "BE-22-1111-333-4888"
+            };
+            yield return new Account()
+            {
+                Id = 4,
+                CurrentBalance = 0,
+                IsActive = true,
+                IsSuspended = false,
+                TypeId = InitAccountType().ToArray()[0].Id,
+                //Customers = new List<Customer>() { InitPeople().ToArray()[2] },
+                AccountNumber = "BE-22-1111-444-4444"
+            };
+            yield return new Account()
+            {
+                Id = 5,
+                CurrentBalance = 100000000,
+                IsActive = true,
+                IsSuspended = false,
+                TypeId = InitAccountType().ToArray()[0].Id,
+                //Customers = new List<Customer>() { InitCompanies().ToArray()[0] },
+                AccountNumber = "BE-22-1111-383-4444"
+            };
+            yield return new Account()
+            {
+                Id = 6,
+                CurrentBalance = 200000000,
+                IsActive = true,
+                IsSuspended = false,
+                TypeId = InitAccountType().ToArray()[0].Id,
+                //Customers = new List<Customer>() { InitCompanies().ToArray()[1] },
+                AccountNumber = "BE-24-1111-333-4444"
+            };
+            yield return new Account()
+            {
+                Id = 7,
+                CurrentBalance = 500,
+                IsActive = true,
+                IsSuspended = false,
+                TypeId = InitAccountType().ToArray()[0].Id,
+                //Customers = new List<Customer>() { InitCompanies().ToArray()[2] },
+                AccountNumber = "BE-22-1177-333-4444"
+            };
 
-        //}
+        }
 
-        //public static IEnumerable<Card> InitCards()
-        //{
-        //    yield return new Card() 
-        //    { 
-        //        Id = 1,
-        //        NumberCard = "0000-1234-5678-9012",
-        //        Pin = new PasswordHasher().Hash("0000-1234-5678-9012" + "0000"),
-        //        IsBlocked = false,
-        //        Account = InitAccounts().ToArray()[0],
-        //    };
-        //    yield return new Card()
-        //    {
-        //        Id = 2,
-        //        NumberCard = "1111-1234-5678-9012",
-        //        Pin = new PasswordHasher().Hash("1111-1234-5678-9012" + "1111"),
-        //        IsBlocked = false,
-        //        Account = InitAccounts().ToArray()[2],
-        //    };
-        //    yield return new Card()
-        //    {
-        //        Id = 3,
-        //        NumberCard = "2222-1234-5678-9012",
-        //        Pin = new PasswordHasher().Hash("2222-1234-5678-9012" + "2222"),
-        //        IsBlocked = false,
-        //        Account = InitAccounts().ToArray()[3],
-        //    };
-        //    yield return new Card()
-        //    {
-        //        Id = 4,
-        //        NumberCard = "3333-1234-5678-9012",
-        //        Pin = new PasswordHasher().Hash("3333-1234-5678-9012" + "3333"),
-        //        IsBlocked = false,
-        //        Account = InitAccounts().ToArray()[4],
-        //    };
-        //    yield return new Card()
-        //    {
-        //        Id = 5,
-        //        NumberCard = "4444-1234-5678-9012",
-        //        Pin = new PasswordHasher().Hash("4444-1234-5678-9012" + "4444"),
-        //        IsBlocked = false,
-        //        Account = InitAccounts().ToArray()[5],
-        //    };
-        //    yield return new Card()
-        //    {
-        //        Id = 6,
-        //        NumberCard = "5555-1234-5678-9012",
-        //        Pin = new PasswordHasher().Hash("5555-1234-5678-9012" + "5555"),
-        //        IsBlocked = false,
-        //        Account = InitAccounts().ToArray()[6],
-        //    };
-        //}
+        public static IEnumerable<Card> InitCards()
+        {
+            yield return new Card()
+            {
+                Id = 1,
+                NumberCard = "0000-1234-5678-9012",
+                Pin = new PasswordHasher().Hash("0000-1234-5678-9012" + "0000"),
+                IsBlocked = false,
+                AccountId = InitAccounts().ToArray()[0].Id,
+            };
+            yield return new Card()
+            {
+                Id = 2,
+                NumberCard = "1111-1234-5678-9012",
+                Pin = new PasswordHasher().Hash("1111-1234-5678-9012" + "1111"),
+                IsBlocked = false,
+                AccountId = InitAccounts().ToArray()[2].Id,
+            };
+            yield return new Card()
+            {
+                Id = 3,
+                NumberCard = "2222-1234-5678-9012",
+                Pin = new PasswordHasher().Hash("2222-1234-5678-9012" + "2222"),
+                IsBlocked = false,
+                AccountId = InitAccounts().ToArray()[3].Id,
+            };
+            yield return new Card()
+            {
+                Id = 4,
+                NumberCard = "3333-1234-5678-9012",
+                Pin = new PasswordHasher().Hash("3333-1234-5678-9012" + "3333"),
+                IsBlocked = false,
+                AccountId = InitAccounts().ToArray()[4].Id           };
+            yield return new Card()
+            {
+                Id = 5,
+                NumberCard = "4444-1234-5678-9012",
+                Pin = new PasswordHasher().Hash("4444-1234-5678-9012" + "4444"),
+                IsBlocked = false,
+                AccountId = InitAccounts().ToArray()[5].Id,
+            };
+            yield return new Card()
+            {
+                Id = 6,
+                NumberCard = "5555-1234-5678-9012",
+                Pin = new PasswordHasher().Hash("5555-1234-5678-9012" + "5555"),
+                IsBlocked = false,
+                AccountId = InitAccounts().ToArray()[6].Id,
+            };
+        }
 
     }
 }

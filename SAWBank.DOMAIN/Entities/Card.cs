@@ -17,6 +17,8 @@ namespace SAWBank.DOMAIN.Entities
         public required byte[] Pin { get; set; }
         public bool IsBlocked { get; set; } = false;
 
+        public int AccountId { get; set; }
+        [ForeignKey("AccountId")]
         public Account Account { get; set; } = null!;
     }
 }
