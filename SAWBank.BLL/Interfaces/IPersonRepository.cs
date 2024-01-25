@@ -12,5 +12,6 @@ namespace SAWBank.BLL.Interfaces
         Person Add(Person person);
         void Update(Person person);
         void Delete(Person person);
+        Person? Find(params object[] id);
     }
 }

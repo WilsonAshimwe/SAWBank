@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 namespace SAWBank.BLL.Services
 {
     public class CustomerService(
-        IPersonRepository _personRepository, 
+        IPersonRepository _personRepository,
+        ICustomerRepository _customerRepository,
         ICompanyRepository _companyRepository, 
         IPasswordHasher _passwordHasher, 
         IAddressRepository _addressRepository,
@@ -158,6 +159,11 @@ namespace SAWBank.BLL.Services
                        CardPin = cardPin
                    });
             _mailer.Send(customer.Email, "Inscription", html);
+        }
+
+        public Customer? GetById(int customerId)
+        {
+             return _customerRepository.Find(customerId);
         }
     }
 }
