@@ -11,7 +11,7 @@ namespace SAWBank.DAL.Repositories
 {
     public class AccountRepository : BaseRepository<Account>, IAccountRepository
     {
-        public AccountRepository(DbContext context) : base(context)
+        public AccountRepository(SAWBankContext context) : base(context)
         {
         }
         public override Account? Find(params object[] id)

@@ -11,7 +11,7 @@ namespace SAWBank.DAL.Repositories
 {
     public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
     {
-        public CompanyRepository(DbContext context) : base(context)
+        public CompanyRepository(SAWBankContext context) : base(context)
         {
         }
         public override Company? Find(params object[] id)

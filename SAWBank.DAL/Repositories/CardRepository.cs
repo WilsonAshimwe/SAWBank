@@ -11,7 +11,7 @@ namespace SAWBank.DAL.Repositories
 {
     public class CardRepository : BaseRepository<Card>, ICardRepository
     {
-        public CardRepository(DbContext context) : base(context)
+        public CardRepository(SAWBankContext context) : base(context)
         {
         }
 
