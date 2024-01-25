@@ -1,5 +1,10 @@
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
+using SAWBank.BLL.Infrastructures;
+using SAWBank.BLL.Interfaces;
 using SAWBank.DAL;
+using System.Net.Mail;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +15,22 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//EnumConverter
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
+
 
 builder.Services.AddDbContext<SAWBankContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+
+//mail
+builder.Services.AddScoped<SmtpClient>();
+builder.Services.AddScoped<IMailer, Mailer>();
+builder.Services.AddSingleton(builder.Configuration.GetSection("Mailer").Get<Mailer.MailerConfig>());
+builder.Services.AddScoped<HtmlRenderer>();
 
 var app = builder.Build();
 
