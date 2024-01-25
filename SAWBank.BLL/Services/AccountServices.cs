@@ -8,10 +8,15 @@ using System.Threading.Tasks;
 
 namespace SAWBank.BLL.Services
 {
-    public class AccountServices (IAccountRepository _accountRepository, IAccountRepository accountRepository,ICardRepository cardRepository,ITransactionRepository transactionRepository,IPersonRepository personRepository, ICompanyRepository companyRepository)
+    public class AccountServices (
+        IAccountRepository _accountRepository, 
+        ICardRepository cardRepository,
+        ITransactionRepository transactionRepository,
+        IPersonRepository personRepository, 
+        ICompanyRepository companyRepository)
     {
         //return All accounds without joins
-        public List<Account> GetAllTest()
+        public List<Account>? GetAllTest()
         {
             return _accountRepository.FindAll();
         }

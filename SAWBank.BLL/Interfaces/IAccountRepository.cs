@@ -15,5 +15,7 @@ namespace SAWBank.BLL.Interfaces
 
         Account? FindByIdInclundingAll(params object[] id);
 
+        List<Account>? FindAll();
+
     }
 }
