@@ -17,5 +17,7 @@ namespace SAWBank.BLL.Interfaces
         List<Account>? GettAllAccountForCusomer(string email);
         List<Account>? FindAll();
 
+        Account? FindByAccountNumber(int customerId, string accountNumber);
+
     }
 }

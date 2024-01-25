@@ -2,7 +2,7 @@
 
 namespace SAWBank.API.DTO.Account
 {
-    public class AccountListResultDTO
+    public class AccountResultDTO
     {
         public int Id { get; set; }
         //After we divide by 100

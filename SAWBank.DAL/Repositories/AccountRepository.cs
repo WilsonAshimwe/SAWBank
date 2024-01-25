@@ -38,7 +38,7 @@ namespace SAWBank.DAL.Repositories
 
         public List<Account>? GettAllAccountForCusomer(string email)
         {
-            // left jpon
+            // left join
             //return _table
             //    .Include(a => a.Customers.Where(c => c.Email == email))
             //    .Include(a => a.Type)
@@ -59,6 +59,18 @@ namespace SAWBank.DAL.Repositories
                 .ToList();
 
 
+        }
+
+        public Account? FindByAccountNumber(int customerId, string accountNumber)
+        {
+            return _table
+                .Include(a => a.Customers)
+                .Include(a => a.Type)
+                .Include(a => a.Cards)
+                .Include(a => a.DepositAccountTransactions)
+                .Include(a => a.WithdrawAccountTransactions)
+                .Where(a => a.Customers.Any(c => c.Id == customerId))
+                .FirstOrDefault(a=> a.AccountNumber == accountNumber);
         }
     }
 }

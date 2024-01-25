@@ -26,5 +26,11 @@ namespace SAWBank.BLL.Services
         {
             return _accountRepository.GettAllAccountForCusomer(email);
         }
+
+        public Account? FindByAccountNumber(int CustomerId,string accountNumber) 
+        {
+            return _accountRepository.FindByAccountNumber(CustomerId, accountNumber);
+        }
+
     }
 }

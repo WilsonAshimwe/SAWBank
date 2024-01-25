@@ -2,6 +2,6 @@
 {
     public class CustomerIdDTO
     {
-        public string CustomerId { get; set; }
+        public int CustomerId { get; set; }
     }
 }
