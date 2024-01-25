@@ -12,7 +12,7 @@ using SAWBank.DAL;
 namespace SAWBank.DAL.Migrations
 {
     [DbContext(typeof(SAWBankContext))]
-    [Migration("20240124152810_initdb")]
+    [Migration("20240125073858_initdb")]
     partial class initdb
     {
         /// <inheritdoc />
