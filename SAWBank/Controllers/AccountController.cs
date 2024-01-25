@@ -323,5 +323,62 @@ namespace SAWBank.API.Controllers
         //public void Delete(int id)
         //{
         //}
+
+        //DONE:  -[Delede] Delete(Account){ .Update()} --> IsActive = false, IsSuspended = true
+        [HttpPatch("suspended")]
+        [Authorize]
+        public IActionResult Suspended([FromBody] AccountResultDTO dto)
+        {
+            bool isConnected = User != null;
+            if (isConnected)
+            {
+                //int idUser =int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                int idUser = User.Id();
+                try
+                {
+                    Account? data = accountService.FindBAccountByNumber(dto.AccountNumber);
+                    if (data == null)
+                    {
+                        throw new Exception("The account doesn't exist");
+                    }
+                    else
+                    {
+                        if (data.Customers.Count > 0)
+                        {
+                            List<int> idsCustomers = new List<int>();
+                            data.Customers.ForEach(c => { idsCustomers.Add(c.Id); });
+
+                            //Is the connected customer the account owner? 
+                            if (!idsCustomers.Contains(idUser))
+                            {
+                                throw new Exception("This is not Your account, you can't change it");
+                            }
+                            else
+                            {
+                                data.IsSuspended = true;
+                                accountService.Update(data);
+                                return Ok();
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
+                    }
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                catch (BadHttpRequestException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }
