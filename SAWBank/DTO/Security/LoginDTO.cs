@@ -1,4 +1,4 @@
-﻿namespace SAWBank.API.DTO
+﻿namespace SAWBank.API.DTO.Security
 {
     public class LoginDTO
     {
