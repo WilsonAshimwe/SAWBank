@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SAWBank.API.DTO.Account;
+using SAWBank.API.Extensions;
 using SAWBank.BLL.Services;
 using SAWBank.DOMAIN.Entities;
 using System.Data;
+using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,8 +16,7 @@ namespace SAWBank.API.Controllers
     public class AccountController(AccountServices accountService) : ControllerBase
     {
         // GET: api/<AccountController>
-        [HttpGet]
-        //[Authorize(Roles = "PERSON,COMPANY")]
+        [HttpGet("test")]
         public IActionResult Get()
         {
             try
@@ -30,10 +31,14 @@ namespace SAWBank.API.Controllers
             }
         }
 
-        // GET api/Account ?email="test@test.com&role=admin"
+        // GET api/Account/email="test@test.com"    --> DONE : -[Get] GetAll(Customer.Id) {}
         [HttpGet("email")]
-        public IActionResult GetAll([FromQuery] CustomerEmailDTO dto)
+        //[Authorize]   //--> in another case:  [Authorize(Roles = "PERSON,COMPANY")] (but here this is all)
+        public IActionResult GetAll([FromQuery] CustomerEmailDTO dto) //User.Email();
         {
+
+            //bool isConnected = User != null;
+            //string email =  User.Email();
             try
             {
                 List<Account>? data = accountService.GettAllAccountForCusomer(dto.Email);
@@ -120,6 +125,21 @@ namespace SAWBank.API.Controllers
                 return BadRequest();
             }
 
+        }
+
+
+        //TODO -[Get] Get(Customer.Id, Account.AccountNumber){}
+        [HttpGet]
+        public IActionResult Get([FromQuery] CustomerIdDTO dtoId, AccountNumberDTO dtoNumber )
+        {
+            try
+            {
+                return Ok(accountService.FindByAccountNumber(dtoId.CustomerId,dtoNumber.AccountNumber));
+            }
+            catch 
+            { 
+                return BadRequest();
+            }
         }
 
         // POST api/<AccountController>
