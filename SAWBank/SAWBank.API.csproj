@@ -17,13 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="DTO\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SAWBank.BLL\SAWBank.BLL.csproj" />
     <ProjectReference Include="..\SAWBank.DAL\SAWBank.DAL.csproj" />
+    <ProjectReference Include="..\SAWBank.DOMAIN\SAWBank.DOMAIN.csproj" />
+    <ProjectReference Include="..\SAWBank.Security\SAWBank.Security.csproj" />
   </ItemGroup>
 
 </Project>
