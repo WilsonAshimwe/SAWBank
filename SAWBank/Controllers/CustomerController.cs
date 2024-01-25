@@ -16,7 +16,7 @@ namespace SAWBank.API.Controllers
         {
             try
             {
-                var customer = _CustomerService
+                Customer customer = _CustomerService
                     .Register
                     (
                      customerDTO.Username, customerDTO.Password, customerDTO.Email, customerDTO.PhoneNumber,
@@ -35,10 +35,9 @@ namespace SAWBank.API.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                return BadRequest(e.Message);
             }
 
         }

@@ -36,18 +36,17 @@ namespace SAWBank.BLL.Services
                 StreetNumber = streetNumber,
                 ZipCode = zipcode,
             });
+
             Customer customer;
 
             //currentAccount
             Account current_acc = CreateAccount(AccountTypeEnum.CurrentAccount);
+            //card for current account
             string card_pin = CreateCard(current_acc);
-
-            //saving account
-            CreateAccount(AccountTypeEnum.SavingAccount);
-
 
             if ((firstName is null || lastName is null) && (businesNumber is not null && name is not null))
             {
+                //add Company
                 customer = _companyRepository.Add(new Company()
                 {
                     Username = username,
@@ -61,9 +60,11 @@ namespace SAWBank.BLL.Services
                     Name = name,
                     Accounts = new List<Account>()
                     {
-                        CreateAccount(AccountTypeEnum.CurrentAccount)
+                        current_acc,
+                        CreateAccount(AccountTypeEnum.SavingAccount)
                     }
                 });
+                //send Mail
                 SendRegistrationMail(customer, password, card_pin);
                 return customer;
             }
@@ -71,10 +72,12 @@ namespace SAWBank.BLL.Services
             {
                 if (firstName is not null && lastName is not null )
                 {
+                    //check if at least 12 y.o
                     if (!(birthDate.Year < DateTime.Now.Year - 12))
                     {
                         throw new Exception("vous etes trop jeune");
                     }
+                    //add Person
                     customer = _personRepository.Add(new Person()
                     {
                         Username = username,
@@ -86,8 +89,14 @@ namespace SAWBank.BLL.Services
                         AddressId = address.Id,
                         FirstName = firstName,
                         LastName = lastName,
-                        BirthDate = birthDate
+                        BirthDate = birthDate,
+                        Accounts = new List<Account>()
+                        {
+                            current_acc,
+                            CreateAccount(AccountTypeEnum.SavingAccount)
+                        }
                     });
+                    //send Mail
                     SendRegistrationMail(customer, password, card_pin);
                     return customer;
                 }

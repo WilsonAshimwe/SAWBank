@@ -11,6 +11,7 @@ namespace SAWBank.API.DTO.Customer
             Phonenumber = customer.PhoneNumber;
             Image = customer.Image;
             Address = customer.Address;
+            Role = customer.Role;
         }
         public CustomerDTO(e.Customer customer, e.Person person) : this(customer)
         {
@@ -35,5 +36,6 @@ namespace SAWBank.API.DTO.Customer
         public DateTime? BirthDate { get; init; }
         public string? Name { get; init; }
         public string? BuisinessNumber { get; init; }
+        public string Role {  get; init; }
     }
 }
