@@ -70,6 +70,9 @@ builder.Services.AddSingleton(builder.Configuration.GetSection("Jwt").Get<JwtMan
 
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
+//ste services
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<AccountServices>();
 
 
 var app = builder.Build();

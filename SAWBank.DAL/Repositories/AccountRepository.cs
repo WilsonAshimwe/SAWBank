@@ -11,7 +11,7 @@ namespace SAWBank.DAL.Repositories
 {
     public class AccountRepository : BaseRepository<Account>, IAccountRepository
     {
-        public AccountRepository(DbContext context) : base(context)
+        public AccountRepository(SAWBankContext context) : base(context)
         {
         }
         public override Account? Find(params object[] id)
@@ -33,6 +33,31 @@ namespace SAWBank.DAL.Repositories
                 .Include(a => a.DepositAccountTransactions)
                 .Include(a => a.WithdrawAccountTransactions)
                 .FirstOrDefault(a => a.Id == (int)id[0]);
+
+        }
+
+        public List<Account>? GettAllAccountForCusomer(string email)
+        {
+            // left jpon
+            //return _table
+            //    .Include(a => a.Customers.Where(c => c.Email == email))
+            //    .Include(a => a.Type)
+            //    .Include(a => a.Cards)
+            //    .Include(a=> a.DepositAccountTransactions)
+            //    .Include(a=> a.WithdrawAccountTransactions)
+            //    .Where(a=> a.Customers.Count >0)
+            //    .ToList();
+
+            //inner join
+            return _table
+                .Include(a => a.Customers)
+                .Include(a => a.Type)
+                .Include(a => a.Cards)
+                .Include(a => a.DepositAccountTransactions)
+                .Include(a => a.WithdrawAccountTransactions)
+                .Where(a => a.Customers.Any(c => c.Email == email))
+                .ToList();
+
 
         }
     }

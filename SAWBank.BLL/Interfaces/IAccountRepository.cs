@@ -14,7 +14,7 @@ namespace SAWBank.BLL.Interfaces
         void Delete(Account account);
 
         Account? FindByIdInclundingAll(params object[] id);
-
+        List<Account>? GettAllAccountForCusomer(string email);
         List<Account>? FindAll();
 
     }
