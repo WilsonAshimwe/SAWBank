@@ -11,7 +11,7 @@ namespace SAWBank.DAL.Repositories
 {
     public class AddressRepository : BaseRepository<Address>, IAddressRepository
     {
-        public AddressRepository(DbContext context) : base(context)
+        public AddressRepository(SAWBankContext context) : base(context)
         {
         }
 

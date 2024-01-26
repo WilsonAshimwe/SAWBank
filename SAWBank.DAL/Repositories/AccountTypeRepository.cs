@@ -11,7 +11,7 @@ namespace SAWBank.DAL.Repositories
 {
     public class AccountTypeRepository : BaseRepository<AccountType>, IAccountTypeRepository
     {
-        public AccountTypeRepository(DbContext context) : base(context)
+        public AccountTypeRepository(SAWBankContext context) : base(context)
         {
         }
 

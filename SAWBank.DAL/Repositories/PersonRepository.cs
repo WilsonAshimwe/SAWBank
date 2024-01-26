@@ -11,7 +11,7 @@ namespace SAWBank.DAL.Repositories
 {
     public class PersonRepository : BaseRepository<Person>, IPersonRepository
     {
-        public PersonRepository(DbContext context) : base(context)
+        public PersonRepository(SAWBankContext context) : base(context)
         {
         }
 

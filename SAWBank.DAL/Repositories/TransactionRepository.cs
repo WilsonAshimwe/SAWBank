@@ -11,7 +11,7 @@ namespace SAWBank.DAL.Repositories
 {
     public class TransactionRepository : BaseRepository<Transaction>, ITransactionRepository
     {
-        public TransactionRepository(DbContext context) : base(context)
+        public TransactionRepository(SAWBankContext context) : base(context)
         {
         }
 

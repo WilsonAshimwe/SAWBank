@@ -11,13 +11,18 @@ namespace SAWBank.DAL.Repositories
 {
     public class AccountRepository : BaseRepository<Account>, IAccountRepository
     {
-        public AccountRepository(DbContext context) : base(context)
+        public AccountRepository(SAWBankContext context) : base(context)
         {
         }
         public override Account? Find(params object[] id)
         {
+            //Find By Id Inclunding All
             return _table
                 .Include(a => a.Type)
+                .Include(a => a.Cards)
+                .Include(a => a.DepositAccountTransactions)
+                .Include(a => a.WithdrawAccountTransactions)
+                .Include(a=> a.Customers)
                 .FirstOrDefault(a => a.Id == (int)id[0]);
         }
         public void Delete(Account account)
@@ -25,15 +30,53 @@ namespace SAWBank.DAL.Repositories
             _table.Remove(account);
         }
 
-        public Account? FindByIdInclundingAll(params object[] id)
+        public Account? FindByNumberAccountInclundingAll(string accountNumber)
         {
             return _table
+              .Include(a => a.Customers)
+              .Include(a => a.Type)
+              .Include(a => a.Cards)
+              .Include(a => a.DepositAccountTransactions)
+              .Include(a => a.WithdrawAccountTransactions)
+              .FirstOrDefault(a => a.AccountNumber == accountNumber);
+
+        }
+
+        public List<Account>? GettAllAccountForCusomer(string email)
+        {
+            // left join
+            //return _table
+            //    .Include(a => a.Customers.Where(c => c.Email == email))
+            //    .Include(a => a.Type)
+            //    .Include(a => a.Cards)
+            //    .Include(a=> a.DepositAccountTransactions)
+            //    .Include(a=> a.WithdrawAccountTransactions)
+            //    .Where(a=> a.Customers.Count >0)
+            //    .ToList();
+
+            //inner join
+            return _table
+                .Include(a => a.Customers)
                 .Include(a => a.Type)
                 .Include(a => a.Cards)
                 .Include(a => a.DepositAccountTransactions)
                 .Include(a => a.WithdrawAccountTransactions)
-                .FirstOrDefault(a => a.Id == (int)id[0]);
+                .Where(a => a.Customers.Any(c => c.Email == email))
+                .ToList();
 
+
+        }
+
+        public Account? FindByAccountNumber(int customerId, string accountNumber)
+        {
+            return _table
+                .Include(a => a.Customers)
+                .Include(a => a.Type)
+                .Include(a => a.Cards)
+                .Include(a => a.DepositAccountTransactions)
+                .Include(a => a.WithdrawAccountTransactions)
+                .Where(a => a.Customers.Any(c => c.Id == customerId))
+                .FirstOrDefault(a=> a.AccountNumber == accountNumber);
         }
     }
 }

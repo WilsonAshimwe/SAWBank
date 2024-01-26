@@ -9,16 +9,41 @@ using System.Threading.Tasks;
 namespace SAWBank.BLL.Services
 {
     public class AccountServices (
-        IAccountRepository _accountRepository, 
-        ICardRepository cardRepository,
-        ITransactionRepository transactionRepository,
-        IPersonRepository personRepository, 
-        ICompanyRepository companyRepository)
+        IAccountRepository _accountRepository 
+        //ICardRepository cardRepository,
+        //ITransactionRepository transactionRepository,
+        //IPersonRepository personRepository, 
+        //ICompanyRepository companyRepository
+        )
     {
         //return All accounds without joins
         public List<Account>? GetAllTest()
         {
             return _accountRepository.FindAll();
         }
+
+        public List<Account>? GettAllAccountForCusomer(string email)
+        {
+            return _accountRepository.GettAllAccountForCusomer(email);
+        }
+
+        public Account? FindByAccountNumber(int CustomerId,string accountNumber) 
+        {
+            return _accountRepository.FindByAccountNumber(CustomerId, accountNumber);
+        }
+        public Account? FindBAccountByNumber(string accountNumber)
+        {
+            return _accountRepository.FindByNumberAccountInclundingAll(accountNumber);
+        }
+
+        public Account? FindById(int AccountId)
+        {
+            return _accountRepository.Find(AccountId);
+        }
+        public void Update(Account account)
+        {
+            _accountRepository.Update(account);
+        }
+
     }
 }
