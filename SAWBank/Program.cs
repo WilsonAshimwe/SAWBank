@@ -92,10 +92,6 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<AccountServices>();
 
-
-
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
