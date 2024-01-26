@@ -12,5 +12,7 @@ namespace SAWBank.BLL.Interfaces
         Transaction Add(Transaction transaction);
         void Update(Transaction transaction);
         void Delete(Transaction transaction);
+        List<Transaction>? FindAll();
+        List<Transaction>? GetAllWithAccounts();
     }
 }

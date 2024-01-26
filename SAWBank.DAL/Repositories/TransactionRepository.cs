@@ -19,5 +19,13 @@ namespace SAWBank.DAL.Repositories
         {
             _table.Remove(transaction);
         }
+
+        public List<Transaction>? GetAllWithAccounts()
+        {
+            return _table
+                .Include(a=> a.DepositAccount)
+                .Include(a=> a.WithdrawAccount)
+                .ToList();
+        }
     }
 }
