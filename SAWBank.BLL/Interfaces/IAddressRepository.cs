@@ -12,5 +12,6 @@ namespace SAWBank.BLL.Interfaces
         Address Add(Address address);
         void Update(Address address);
         void Delete(Address address);
+        Address? Find(params object[] id);
     }
 }

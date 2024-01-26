@@ -26,5 +26,10 @@ namespace SAWBank.DAL.Repositories
         {
             _table.Remove(company);
         }
+
+        public List<Company> FindAllWithInclude()
+        {
+            return _table.Include(c => c.Address).Include(c => c.Accounts).ToList();
+        }
     }
 }
