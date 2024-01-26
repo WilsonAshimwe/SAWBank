@@ -260,7 +260,7 @@ namespace SAWBank.API.Controllers
             }
             else
             {
-                return BadRequest();
+                return Unauthorized();
             }
         }
 

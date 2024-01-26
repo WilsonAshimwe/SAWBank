@@ -10,6 +10,11 @@ namespace SAWBank.BLL.Services
 {
     public class TransactionServices(ITransactionRepository transactionRepository)
     {
+        public void AddMoney(Transaction newTransaction, int accountDepo, int accountWithDraw)
+        {
+            transactionRepository.AddMoney(newTransaction, accountDepo, accountWithDraw);
+        }
+
         //return All transaction without joins
         public List<Transaction>? GetAllTest()
         {
