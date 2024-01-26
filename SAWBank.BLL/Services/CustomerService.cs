@@ -248,5 +248,19 @@ namespace SAWBank.BLL.Services
             }
         }
 
+        public List<Customer> GetAllCustomers()
+        {
+            return _customerRepository.FindAllWithInclude();
+        }
+
+        public List<Company> GetAllCompanies()
+        {
+            return _companyRepository.FindAllWithInclude();
+        }
+
+        public List<Person> GetAllPeople()
+        {
+            return _personRepository.FindAllWithInclude();
+        }
     }
 }

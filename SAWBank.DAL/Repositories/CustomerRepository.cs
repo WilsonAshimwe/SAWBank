@@ -22,5 +22,10 @@ namespace SAWBank.DAL.Repositories
                 .Include(c => c.Accounts)
                 .FirstOrDefault(c => c.Id == (int)id[0]);
         }
+
+        public List<Customer> FindAllWithInclude()
+        {
+            return _table.Include(c=>c.Address).Include(c => c.Accounts).ToList();
+        }
     }
 }

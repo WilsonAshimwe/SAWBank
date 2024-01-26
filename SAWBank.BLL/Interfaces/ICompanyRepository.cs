@@ -13,5 +13,6 @@ namespace SAWBank.BLL.Interfaces
         void Update(Company company);
         void Delete(Company company);
         Company? Find(params object[] id);
+        List<Company> FindAllWithInclude();
     }
 }

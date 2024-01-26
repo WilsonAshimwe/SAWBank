@@ -50,6 +50,8 @@ builder.Services.AddSwaggerGen(
 //EnumConverter
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.WriteIndented = true;
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 

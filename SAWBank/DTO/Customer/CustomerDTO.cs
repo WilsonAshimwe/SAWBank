@@ -1,4 +1,5 @@
-﻿using SAWBank.DOMAIN.Entities;
+﻿using SAWBank.API.DTO.Account;
+using SAWBank.DOMAIN.Entities;
 using e = SAWBank.DOMAIN.Entities;
 namespace SAWBank.API.DTO.Customer
 {
