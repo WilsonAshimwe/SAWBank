@@ -8,7 +8,7 @@ using SAWBank.DOMAIN.Entities;
 using System.Data;
 using System.Security.Claims;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 
 namespace SAWBank.API.Controllers
 {
@@ -329,6 +329,8 @@ namespace SAWBank.API.Controllers
         [Authorize]
         public IActionResult Suspended([FromBody] AccountResultDTO dto)
         {
+            //I want to suspend my account for a period of time --> IsSuspended == true  ]
+            //NOT real now --> to add StardDateSustended and FinishDateSuspended
             bool isConnected = User != null;
             if (isConnected)
             {
