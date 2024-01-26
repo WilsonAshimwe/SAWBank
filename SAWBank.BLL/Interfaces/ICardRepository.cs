@@ -12,5 +12,7 @@ namespace SAWBank.BLL.Interfaces
         Card Add(Card card);
         void Update(Card card);
         void Delete(Card card);
+        List<Card> GetAllById(int customerId);
+        Card? GetById(int customerId, int cardId);
     }
 }

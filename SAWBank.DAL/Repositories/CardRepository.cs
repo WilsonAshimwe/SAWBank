@@ -19,5 +19,15 @@ namespace SAWBank.DAL.Repositories
         {
             _table.Remove(card);
         }
+
+        public List<Card> GetAllById(int customerId)
+        {
+            return _table.Where(c => c.Account.Customers.Any(customer => customer.Id == customerId)).ToList();
+        }
+
+        public Card? GetById(int customerId, int cardId)
+        {
+            return _table.Include(c => c.Account).Where(c => c.Account.Customers.Any(customer => customer.Id == customerId) && c.Id == cardId).FirstOrDefault();
+        }
     }
 }

@@ -101,6 +101,7 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<CustomerService>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 builder.Services.AddScoped<TransactionServices>();
+builder.Services.AddScoped<CardService>();
 
 var app = builder.Build();
 
