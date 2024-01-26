@@ -26,7 +26,6 @@ namespace SAWBank.BLL.Services
     {
         public Customer Register(string username, string password, string email, string phoneNumber, string street, string city, string streetNumber, string zipcode, string? additionalInfo, string? name, string? businesNumber, string? firstName, string? lastName, DateTime birthDate)
         {
-
             byte[] hash = _passwordHasher.Hash(email + password);
 
             Address address = _addressRepository.Add(new Address()
@@ -165,5 +164,89 @@ namespace SAWBank.BLL.Services
         {
              return _customerRepository.Find(customerId);
         }
+
+        public void SoftDelete(int customerId)
+        {
+            Customer? c = GetById(customerId);
+
+            if (c is null)
+            {
+                throw new KeyNotFoundException($"No Customer with the following id has been found : {customerId}");
+            }
+
+            c.IsActive = false;
+            _customerRepository.Update(c);
+        }
+
+        public void ReActivate(int customerId)
+        {
+            Customer? c = GetById(customerId);
+
+            if (c is null)
+            {
+                throw new KeyNotFoundException($"No Customer with the following id has been found : {customerId}");
+            }
+
+            c.IsActive = true;
+            _customerRepository.Update(c);
+        }
+
+        public Customer Update(int customerId, string username, string password, string email, string phoneNumber, string street, string city, string streetNumber, string? additionnalInfo, string zipcode, string? firstName, string? lastName, DateTime birthDate, string? name)
+        {
+            Customer? c = GetById(customerId);
+
+            if (c is null)
+            {
+                throw new KeyNotFoundException($"No Customer with the following id has been found : {customerId}");
+            }
+            //address update
+            Address? address = _addressRepository.Find(c.AddressId);
+
+            if (address is null)
+            {
+                throw new KeyNotFoundException($"No address has been found");
+            }
+
+            address.Street = street;
+            address.City = city;
+            address.StreetNumber = streetNumber;
+            address.AdditionalInfo = additionnalInfo;
+            address.ZipCode = zipcode;
+
+            _addressRepository.Update(address);
+
+            //customer update
+            byte[] hash = _passwordHasher.Hash(email + password);
+
+            if (c.Role == "PERSON")
+            {
+                Person person = c as Person;
+                person.Username = username;
+                person.Password = hash;
+                person.Email = email;
+                person.PhoneNumber = phoneNumber;
+                person.FirstName = firstName;
+                person.LastName = lastName;
+                person.BirthDate = birthDate;
+                person.Address = address;
+
+                _personRepository.Update(person);
+                return person;
+            }
+            else
+            {
+                Company comp = c as Company;
+                comp.Username = username;
+                comp.Password = hash;
+                comp.Email = email;
+                comp.PhoneNumber = phoneNumber;
+                comp.Name = name;
+                comp.Address = address;
+
+                _companyRepository.Update(comp);
+                return comp;
+            }
+        }
+
     }
 }

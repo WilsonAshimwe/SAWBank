@@ -14,5 +14,13 @@ namespace SAWBank.DAL.Repositories
         public CustomerRepository(SAWBankContext context) : base(context)
         {
         }
+
+        public override Customer? Find(params object[] id)
+        {
+            return _table
+                .Include(c => c.Address)
+                .Include(c => c.Accounts)
+                .FirstOrDefault(c => c.Id == (int)id[0]);
+        }
     }
 }

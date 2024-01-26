@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SAWBank.API.DTO.Customer;
 using SAWBank.API.DTO.CustomerDTO;
@@ -43,42 +45,119 @@ namespace SAWBank.API.Controllers
 
         }
 
+        [Authorize]
         [HttpPut]
-        public IActionResult Update()
+        public IActionResult Update([FromBody] CustomerUpdateDTO updateDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+
+                Customer? c;
+                c = _customerService.GetById(int.Parse(userId.Value));
+
+                Customer updatedCustomer = _customerService.Update
+                    (
+                        int.Parse(userId.Value), updateDTO.Username, updateDTO.Password,updateDTO.Email,
+                        updateDTO.PhoneNumber, updateDTO.Street, updateDTO.City, updateDTO.StreetNumber,updateDTO.AdditionnalInfo,updateDTO.Zipcode,
+                        updateDTO.FirstName,updateDTO.LastName,updateDTO.BirthDate,updateDTO.Name
+                    );
+
+                if (updatedCustomer is Person)
+                {
+                    Person person = updatedCustomer as Person;
+                    return Ok(new CustomerDTO(updatedCustomer, person));
+                }
+                else
+                {
+                    Company company = updatedCustomer as Company;
+                    return Ok(new CustomerDTO(updatedCustomer, company));
+                }
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
-        [HttpPatch("remove")]
+        [Authorize]
+        [HttpPatch]
         public IActionResult SoftDelete()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+
+                Customer? c;
+                c = _customerService.GetById(int.Parse(userId.Value));
+
+                _customerService.SoftDelete(int.Parse(userId.Value));
+
+                return Ok("customer disabled!");
+            }
+            catch(KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [Authorize]
+        [HttpPatch("activate")]
+        public IActionResult ReActivate()
+        {
+            try
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+
+                Customer? c;
+                c = _customerService.GetById(int.Parse(userId.Value));
+
+                _customerService.ReActivate(int.Parse(userId.Value));
+
+                return Ok("customer active!");
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         public IActionResult Get()
         {
-            //var userId = User.FindFirst(ClaimTypes.NameIdentifier);
-
-            //Customer? c;
-
-            //if (userId != null)
-            //{
-            //    c = _customerService.GetById(int.Parse(userId.Value));
-            //}
-
-            Customer? c = _customerService.GetById(1);
-
-            if (c is Person)
+            try
             {
-                Person person = c as Person;
-                return Ok(new CustomerDTO(c, person));
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+
+                Customer? c;
+                c = _customerService.GetById(int.Parse(userId.Value));
+                if (c is Person)
+                {
+                    Person person = c as Person;
+                    return Ok(new CustomerDTO(c, person));
+                }
+                else
+                {
+                    Company company = c as Company;
+                    return Ok(new CustomerDTO(c, company));
+                }
+
             }
-            else
+            catch (Exception e)
             {
-                Company company = c as Company;
-                return Ok(new CustomerDTO(c, company));
+                return BadRequest(e.Message);
             }
         }
     }
