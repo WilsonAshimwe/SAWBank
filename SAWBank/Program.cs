@@ -68,7 +68,28 @@ builder.Services.AddScoped<JwtSecurityTokenHandler>();
 builder.Services.AddScoped<JwtManager>();
 builder.Services.AddSingleton(builder.Configuration.GetSection("Jwt").Get<JwtManager.JwtConfig>());
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+
+
 
 
 
@@ -80,6 +101,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//security
+
 
 app.UseAuthorization();
 
