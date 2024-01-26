@@ -14,5 +14,6 @@ namespace SAWBank.BLL.Interfaces
         void Delete(Transaction transaction);
         List<Transaction>? FindAll();
         List<Transaction>? GetAllWithAccounts();
+        void AddMoney(Transaction newTransaction, int accountDepo, int accountWithDraw);
     }
 }

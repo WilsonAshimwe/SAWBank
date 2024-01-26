@@ -11,6 +11,7 @@ namespace SAWBank.DAL.Repositories
 {
     public class TransactionRepository : BaseRepository<Transaction>, ITransactionRepository
     {
+        private readonly DbContext _context;
         public TransactionRepository(SAWBankContext context) : base(context)
         {
         }
@@ -27,5 +28,15 @@ namespace SAWBank.DAL.Repositories
                 .Include(a=> a.WithdrawAccount)
                 .ToList();
         }
+        public void AddMoney(Transaction newTransaction, int accountDepo, int accountWithDraw)
+        {
+            _table
+                .Include(a => a.DepositAccount)
+                .Include(a => a.WithdrawAccount)
+                .Where(a => a.DepositAccount.Id == accountDepo)
+                .Where(a=> a.WithdrawAccount.Id == accountWithDraw);
+            _context.SaveChanges();
+        }
+
     }
 }
